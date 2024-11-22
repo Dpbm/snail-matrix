@@ -1,0 +1,18 @@
+#matrix{
+	display:flex;
+	flex-direction:column;
+}
+
+.matrix-row{
+	display: flex;
+}
+
+.value-container{
+	width: 60px;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid;
+
+}
