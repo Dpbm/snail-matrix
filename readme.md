@@ -12,4 +12,4 @@ To visualize it better, a matrix is drawn in the screen. This way, you can check
 
 Everything was done with simple JS/HTML/CSS. Due to that choice, the algorithm is simple to read, and also easy to run on any device.
 
-[check it out!]()
+[check it out!](https://dpbm.github.io/snail-matrix/)
