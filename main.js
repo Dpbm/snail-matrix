@@ -15,21 +15,9 @@ function calculateMatrix(side) {
 
 	const matrix = Array.from(Array(side), () => new Array(side));
 
-	const values = Array.from(
-		[...Array(side * side).keys()].map((x) => x + 1),
-		(x) => x * side
-	);
-	log(`init array of values: ${values}`);
-
-	const firstBatch = values.slice(0, side);
-	log(`first values batch: ${firstBatch}`);
-
-	matrix[0] = firstBatch;
-	logTable(matrix);
-
 	let currentSize = side - 1;
 	let counter = 0;
-	let index = side;
+	let currentValue = side;
 
 	let i = 1;
 	let j = side - 1;
@@ -37,20 +25,26 @@ function calculateMatrix(side) {
 	let iRelativeDir = 1;
 	let jRelativeDir = -1;
 
-	while (true) {
-		const nextBatch = values.slice(index, index + currentSize);
-		log(`next valuse batch: ${nextBatch}`);
+	//first row
+	for (let curr = 0; curr < side; curr++) {
+		matrix[0][curr] = currentValue;
+		currentValue += side;
+	}
 
-		counter++;
-		index += currentSize;
+	while (counter <= 2 && currentSize >= 1) {
+		if (counter == 2) {
+			counter = 0;
+			currentSize--;
+			continue;
+		}
 
-		const dir = counter - 1;
+		const dir = counter;
 
 		if (dir == 0) {
 			//vertical
-
-			for (let value of nextBatch) {
-				matrix[i][j] = value;
+			for (let curr = 0; curr < currentSize; curr++) {
+				matrix[i][j] = currentValue;
+				currentValue += side;
 				i += iRelativeDir;
 			}
 
@@ -59,9 +53,9 @@ function calculateMatrix(side) {
 			j += jRelativeDir;
 		} else {
 			//horizontal
-
-			for (let value of nextBatch) {
-				matrix[i][j] = value;
+			for (let curr = 0; curr < currentSize; curr++) {
+				matrix[i][j] = currentValue;
+				currentValue += side;
 				j += jRelativeDir;
 			}
 
@@ -71,14 +65,7 @@ function calculateMatrix(side) {
 			j += jRelativeDir;
 		}
 
-		if (counter == 2 && currentSize == 1) {
-			break;
-		}
-
-		if (counter == 2) {
-			counter = 0;
-			currentSize--;
-		}
+		counter++;
 	}
 
 	return matrix;
